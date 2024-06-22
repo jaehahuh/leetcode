@@ -1,8 +1,8 @@
 # leetcode
 
--Problem solving
+### Problem solving
 
--Data Structure
+### Data Structure
 
--Algorithms
+### Algorithms
 
