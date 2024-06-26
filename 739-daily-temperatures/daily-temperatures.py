@@ -1,12 +1,12 @@
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
-        warm_days = [] 
-        answer = [0]*len(temperatures)
+        save_indice = []  # store temperatures list's index 
+        warm_days = [0]*len(temperatures) 
 
         for i, temp in enumerate(temperatures):
-            while warm_days and temp > temperatures[warm_days[-1]]:
-                count = warm_days.pop()
-                answer[count] = i - count
-            warm_days.append(i)
-
-        return answer
+            while save_indice and temp > temperatures[save_indice[-1]]:
+                index = save_indice.pop()
+                warm_days[index] = i - index 
+            save_indice.append(i)
+ 
+        return warm_days
