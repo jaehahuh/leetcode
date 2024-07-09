@@ -16,7 +16,7 @@ class Solution:
             'M' : 1000
         }
         roman = ''
-        for key in reversed(table):
+        for key in reversed(table): #start with roman character "M"
             if num // table[key]:
                 roman += key * (num // table[key])
                 num %= table[key]
