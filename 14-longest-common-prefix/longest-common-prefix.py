@@ -1,10 +1,11 @@
 class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
-        if not strs:
-            return ""
-        min_str = min(strs, key=len)
-        for i, ch in enumerate(min_str):
+        answer = ''
+        min_s = min(strs, key=len) #find minimum length of string
+        for i, ch in enumerate(min_s):
             for s in strs:
                 if s[i] != ch:
-                    return min_str[:i]
-        return min_str
+                   return answer
+            answer += ch
+
+        return answer
