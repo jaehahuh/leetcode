@@ -11,7 +11,6 @@ class Solution:
             right = len(nums) - 1
             while left < right:
                 total = num + nums[left] + nums[right]
-                standard = abs(target - total)
 
                 if target == total:
                     return total
