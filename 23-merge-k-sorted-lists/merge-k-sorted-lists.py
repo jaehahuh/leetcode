@@ -1,26 +1,43 @@
-import heapq
-
+# Definition for singly-linked list.
 class ListNode:
-    def __init__ (self, val=0,next=None):
+    def __init__(self, val=0, next=None):
         self.val = val
-        self.next = next 
-        
+        self.next = next
+
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        root = result = ListNode(None)
-        heap = []
-
-        for i in range(len(lists)):
-            if lists[i]:
-                heapq.heappush(heap, (lists[i].val, i , lists[i]))
+        if not lists or len(lists) == 0:
+            return None
         
-        while heap:
-            node = heapq.heappop(heap)
-            i = node[1]
-            result.next = node[2]
+        while len(lists) > 1:
+            mergedLists = []
 
-            result = result.next
-            if result.next:
-                heapq.heappush(heap, (result.next.val, i, result.next))
-        
-        return root.next
+            for i in range(0, len(lists), 2):
+                lst1 = lists[i]
+                lst2 = lists[i+1] if (i+1) < len(lists) else None
+                mergedLists.append(self.mergeTwoList(lst1,lst2)) 
+
+            lists = mergedLists
+        return lists[0] # return head of lists
+
+    #Merge Two list Node in ascending order
+    def mergeTwoList(self,lst1:ListNode,lst2:ListNode) -> ListNode:
+        head = tail = ListNode()
+    
+        while lst1 and lst2: # loop until one of list is None
+            #Sort the two lists in ascending order
+            if lst1.val < lst2.val:
+                tail.next = lst1
+                lst1 = lst1.next
+            else:
+                tail.next = lst2
+                lst2 = lst2.next
+            tail = tail.next
+
+        #Add the remaining non-empty remaining list together
+        if lst1:
+            tail.next = lst1
+        if lst2:
+            tail.next = lst2
+
+        return head.next # return start of linked list
