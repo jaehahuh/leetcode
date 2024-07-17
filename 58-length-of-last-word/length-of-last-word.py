@@ -1,7 +1,7 @@
 class Solution:
     def lengthOfLastWord(self, s: str) -> int:
-        #split s by space
         word_list = s.split(" ")
+        
         #if last index of list is word, return length of word 
         if word_list[-1].isalpha():
             return len(word_list[-1])
