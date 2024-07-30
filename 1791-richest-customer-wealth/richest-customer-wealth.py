@@ -4,5 +4,4 @@ class Solution:
         for i in range(len(accounts)):
             if sum(accounts[i]) > max_wealth:
                 max_wealth = sum(accounts[i])
-        
         return max_wealth
