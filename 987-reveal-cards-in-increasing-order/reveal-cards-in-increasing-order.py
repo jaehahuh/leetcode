@@ -15,6 +15,7 @@ class Solution:
             # if there are still indices left in the queue
             if queue:
                 #pop the next index and append it to the end of the queue
+                #this simulates the "skip" operation where we move the next index to the back
                 skip = queue.popleft()
                 queue.append(skip)
 
