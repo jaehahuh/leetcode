@@ -1,6 +1,5 @@
 class Solution:
     def findArray(self, pref: List[int]) -> List[int]:
-        #xor
         result = [pref[0]]
         for i in range(1,len(pref)):
             xor = pref[i-1] ^ pref[i]
