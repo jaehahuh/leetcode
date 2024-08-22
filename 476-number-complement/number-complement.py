@@ -1,6 +1,6 @@
 class Solution:
     def findComplement(self, num: int) -> int:
-        comp = '0b'
+        comp = ''
         binary = bin(num)[2:]
         for i in binary:
             if i == '0':
