@@ -15,8 +15,7 @@ class Solution:
             else:
                 return 0
             
-            # Sort the numbers based on the custom comparator
-        
+        # Sort the numbers based on the custom comparator
         nums_str.sort(key=cmp_to_key(compare))
 
         largest_num = ''.join(nums_str)
