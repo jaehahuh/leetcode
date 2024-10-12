@@ -10,6 +10,7 @@ class Solution:
         max_groups = 0
         cur_groups = 0
 
+        #the current_groups increase at the start of the interval and decrease at the end of the interval
         for i, event in events:
             cur_groups += event
             max_groups = max(max_groups, cur_groups)
