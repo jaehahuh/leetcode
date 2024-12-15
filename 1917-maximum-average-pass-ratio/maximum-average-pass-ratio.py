@@ -1,4 +1,3 @@
-
 class Solution:
     def maxAverageRatio(self, classes: List[List[int]], extraStudents: int) -> float:
         # calculates percentage increaces in a class
