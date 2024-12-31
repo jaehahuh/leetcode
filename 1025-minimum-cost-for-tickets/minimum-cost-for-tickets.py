@@ -15,8 +15,3 @@ class Solution:
                 dp[max(0, day - 30)] + costs[2])
     
         return dp[days[-1]]
-
-
-
-
-
