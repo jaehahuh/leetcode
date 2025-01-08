@@ -1,8 +1,7 @@
 class Solution:
     def countPrefixSuffixPairs(self, words: List[str]) -> int:
         def isPrefixAndSuffix(word1, word2):
-            if word1 == word2[:len(word1)] and word1 == word2[len(word2)-len(word1):]:
-                print(word1, word2)
+            if word2.startswith(word1) and word2.endswith(word1):
                 return True
             else:
                 return False
