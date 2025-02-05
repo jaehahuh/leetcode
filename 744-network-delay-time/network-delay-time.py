@@ -1,33 +1,27 @@
 class Solution:
     def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
-        #build the graph as an adjacency list
-        graph = {i: [] for i in range(1, n + 1)}
-        for u, v, w in times:
-            graph[u].append((v, w)) 
+        # Build the graph
+        graph = defaultdict(list)
+        for i in range(len(times)):
+            u, v, w = times[i] #source, target, time 
+            graph[u].append((v, w))
 
-        #initialize distances and the priority queue
-        distances = {}
-        for i in range(1, n+1):
-            distances[i] = float('inf')
-        distances[k] = 0
-        priority_queue = [(0, k)]
+        # Initialize the priority queue 
+        q = [(0, k)] # (time, node) k = staring point
+        visited = set()
+        max_time = 0
 
-        #implement Dijkstra's Algorithm
-        while priority_queue:
-            current_distance, current_node = heapq.heappop(priority_queue)
-        
-            if current_distance > distances[current_node]:
+        while q:
+            current_time, current_node = heapq.heappop(q)
+            if current_node in visited:
                 continue
+            visited.add(current_node)
+            max_time = max(max_time, current_time)
             
-            for v, w in graph[current_node]:
-                dist = current_distance + w
-                if dist < distances[v]:
-                    distances[v] = dist
-                    heapq.heappush(priority_queue, (dist, v))
+            # Explore adjacent nodes
+            for neighbor_node, travel_time in graph[current_node]:
+                if neighbor_node not in visited:
+                    heapq.heappush(q, (current_time + travel_time, neighbor_node))
         
-        #determine the existence of shortest paths for all paths
-        max_distance = max(distances.values())
-        if max_distance < float('inf'): 
-            return max_distance
-        else:
-            return -1
+        # Check if all nodes have been visited
+        return max_time if len(visited) == n else -1
