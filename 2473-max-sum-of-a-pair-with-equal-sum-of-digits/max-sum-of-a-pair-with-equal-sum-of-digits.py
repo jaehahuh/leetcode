@@ -1,6 +1,6 @@
 class Solution:
     def maximumSum(self, nums: List[int]) -> int:
-        digit_sum_dict = defaultdict(list) #Dictionary to hold lists of numbers with the same digit sum
+        digit_sum_dict = defaultdict(list) # Dictionary to hold lists of numbers with the same digit sum
         for i, num in enumerate(nums):
             sum_digits = sum(int(digit) for digit in str(num))
             # Append the number to the list corresponding to its digit sum
