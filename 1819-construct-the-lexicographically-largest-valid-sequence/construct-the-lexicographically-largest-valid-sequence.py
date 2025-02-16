@@ -1,5 +1,6 @@
 class Solution:
     def constructDistancedSequence(self, n: int) -> List[int]:
+
         # Initialize the result list
         result = [0] * (2 * n - 1)
         used = set()  # Track numbers that have already been placed
@@ -36,7 +37,6 @@ class Solution:
                 result[index] = 0 # Reset the current index
                 if num > 1:
                     result[index + num] = 0  # Reset the second occurrence position
-                     
             return False  # Failed after trying all numbers
         
         backtracking(0)
