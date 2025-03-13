@@ -5,10 +5,10 @@ class Solution:
 
         while left <= right:
             mid = (left + right) // 2
-            decrement_array = [0] * (len(nums) + 1)  # Create an array to track decrements
+            decrement_array = [0] * (len(nums) + 1)  # Create an array to track decrements for nums
 
 
-            for i in range(mid): 
+            for i in range(mid): # Loop through the queries from index 0 to mid - 1
                 start, end, val = queries[i]
                 decrement_array[start] += val
                 if end + 1 < len(nums): # Check if the end index + 1 is within bounds
