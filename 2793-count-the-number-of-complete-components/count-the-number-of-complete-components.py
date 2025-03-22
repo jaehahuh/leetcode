@@ -27,13 +27,7 @@ class UnionFind:
                 self.size[root_x] += self.size[root_y]
                 self.edge_count[root_x] += self.edge_count[root_y]
                 return root_x
-            
-            return root_x
-    
-    # Increment the edge count for the component of x
-    def increment_edges(self, x):
-        root = self.find(x)
-        self.edge_count[root] += 1
+        return root_x
 
 class Solution:
     def countCompleteComponents(self, n: int, edges: List[List[int]]) -> int:
@@ -41,8 +35,8 @@ class Solution:
 
         for a, b in edges:
             uf.union(a,b) # Connect nodes a and b
-            uf.increment_edges(a)  # Increment edge count for node a
-            uf.increment_edges(b) # Increment edge count for node b
+            uf.edge_count[uf.find(a)] += 1
+            uf.edge_count[uf.find(b)] += 1
         
         complete_components = 0
         seen = set() # Track already checked roots
