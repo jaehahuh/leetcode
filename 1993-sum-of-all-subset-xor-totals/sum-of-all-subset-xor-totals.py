@@ -1,15 +1,8 @@
 class Solution:
     def subsetXORSum(self, nums: List[int]) -> int:
-        total = 0
-        
-        def backtrack(i, curr_xor):
-            nonlocal total
-            total += curr_xor
-
-            # explore the subsets starting from the current index
-            for i in range(i, len(nums)):
-                backtrack (i+1, curr_xor ^ nums[i])
-
-        backtrack(0, 0)
-        return total 
-        
+        def dfs(i, total_xor):
+            if i == len(nums):
+                return total_xor
+            # include nums[i] and skip nums[i]
+            return dfs (i + 1, total_xor ^ nums[i]) + dfs (i + 1, total_xor) 
+        return dfs(0, 0)
