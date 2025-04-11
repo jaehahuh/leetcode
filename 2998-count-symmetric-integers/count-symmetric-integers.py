@@ -3,8 +3,8 @@ class Solution:
         count = 0
         for num in range(low, high+1):
             str_num = str(num)
-            mid = len(str_num)//2
             if len(str_num)%2 == 0:
+                mid = len(str_num)//2
                 first_digits = str_num[:mid]
                 last_digits = str_num[mid:]
                 first_sum = sum(int(digit) for digit in first_digits)
