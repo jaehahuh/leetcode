@@ -1,20 +1,20 @@
 class Solution:
     def countFairPairs(self, nums: List[int], lower: int, upper: int) -> int:
-        def binary_search(left,right,target):
-            #return largest i, where nums[i] < target x
-            while left <= right:
-                mid = (left + right) // 2
-                if nums[mid] >= target:
-                    right = mid - 1
-                else:
-                    left = mid + 1
-            return right
-
         nums.sort()
-        res = 0
-        for i in range(len(nums)):
-            low = lower - nums[i]
-            up = upper - nums[i]
-            res += (binary_search(i+1,len(nums)-1, up + 1) - binary_search(i+1,len(nums)-1, low))
-            
-        return res
+
+        # Count pairs with sum less than or equal to boundary
+        def countPairs(boundary):
+            count = 0
+            left, right = 0, len(nums)-1
+
+            while left < right:
+                if nums[left] + nums[right] <= boundary:
+                    count += right - left # All pairs between left and right satisfy the condition
+                    left += 1
+                else:
+                    right -= 1
+
+            return count
+
+        # (pairs with sum <= upper) - (pairs with sum <= lower-1) -----> sum of count between lower and upper
+        return countPairs(upper) - countPairs(lower-1) 
