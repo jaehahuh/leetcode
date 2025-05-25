@@ -17,7 +17,7 @@ class Solution:
                     counter[word] -= pair
                     counter[reversed_word] -= pair
 
-            # If there is any remaining palindromic word, place one in the center
+        # If there is any remaining palindromic word, place one in the center
         for word in counter:
             if word[0] == word[1] and counter[word] > 0:
                 palin_length += 2
