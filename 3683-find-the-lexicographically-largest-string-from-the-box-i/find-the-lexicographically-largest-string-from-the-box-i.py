@@ -5,7 +5,7 @@ class Solution:
             return word
         
         # Find the lexicographically largest suffix
-        max_suffix = self._findLastLexSubstring(word)
+        max_suffix = self.findLastLexSubstring(word)
         
         # We can only use up to (len(word) - numFriends + 1) characters
         max_length = len(word) - numFriends + 1
@@ -13,7 +13,7 @@ class Solution:
         return max_suffix[:max_length]
 
     # Function to find the lexicographically largest suffix in O(n) time
-    def _findLastLexSubstring(self, s: str) -> str:
+    def findLastLexSubstring(self, s: str) -> str:
         start = 0
         candidate = 1
         offset = 0
