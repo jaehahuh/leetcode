@@ -5,7 +5,6 @@ class Solution:
             heapq.heappush(min_heap, (n, i))
             if len(min_heap) > k:
                 heapq.heappop(min_heap)
-                print(min_heap)
         
         top_k_elements = list(min_heap)
         top_k_elements.sort(key=lambda x:x[1])
