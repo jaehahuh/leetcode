@@ -4,14 +4,15 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def getDecimalValue(self, head: ListNode) -> int:
-        p = head
-        decimal_num = 0
-        
-        while p is not None:
-            decimal_num = (decimal_num << 1) | p.val
-            p = p.next
+    def getDecimalValue(self, head: Optional[ListNode]) -> int:
+        binary_num = []
+        while head:
+            binary_num.append(head.val)
+            head = head.next
 
-        return decimal_num
+        decimal_val = 0
+        binary_num.reverse()
+        for i in range(len(binary_num)):
+            decimal_val += binary_num[i] * (2**i)
 
-
+        return decimal_val
