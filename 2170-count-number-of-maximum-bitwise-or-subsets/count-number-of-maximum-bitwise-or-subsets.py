@@ -5,14 +5,15 @@ class Solution:
             max_or |= num
         
         n = len(nums)
-        count = 0
-        for i in range(1 << n):
-            current_or_sum = 0
-            for j in range(n):
-                if (i >> j) & 1:
-                    current_or_sum |= nums[j]
-            
-            if current_or_sum == max_or:
-                count += 1
-        
-        return count
+        self.count = 0
+        def dfs(index, current_or_sum):
+            if index == n:
+                if current_or_sum == max_or:
+                    self.count += 1
+                return
+
+            dfs(index + 1, current_or_sum | nums[index])
+            dfs(index + 1, current_or_sum)
+
+        dfs(0, 0)
+        return self.count
