@@ -1,17 +1,19 @@
 class Solution:
     def longestSubarray(self, nums: List[int]) -> int:
-        #find the maximum element in the array
-        max_num = max(nums)
+        max_bit_num = max(nums)
+        index_array = []
+        for i, value in enumerate(nums):
+            if value == max_bit_num:
+                index_array.append(i)
         
-        longest = 0
-        curr_leng = 0
-
-        #use Kadane's alogrithm
-        for num in nums:
-            if num == max_num:
-                curr_leng += 1
-                longest = max(longest, curr_leng)
+        count = 1
+        max_count = 1
+        for i in range(1,len(index_array)):
+            if (index_array[i-1] + 1) == index_array[i]:
+                count += 1
             else:
-                curr_leng = 0
-        
-        return longest
+                max_count = max(count, max_count)
+                count = 1
+
+        max_count = max(count, max_count)
+        return max_count
