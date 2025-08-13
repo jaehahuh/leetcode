@@ -3,10 +3,7 @@ class Solution:
         if n <= 0:
             return False
 
-        x = 0
-        while True:
-            if 3**x > n:
-                return False
-            elif 3**x == n:
-                return True
-            x += 1
+        while n % 3 == 0:
+            n //= 3 
+        
+        return n == 1
