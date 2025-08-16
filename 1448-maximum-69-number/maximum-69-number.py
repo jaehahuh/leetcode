@@ -1,11 +1,12 @@
 class Solution:
     def maximum69Number (self, num: int) -> int:
-        s = str(num)
-        max_69 = ""
-        for i in range(len(s)):
-            if s[i] != "6":
-                max_69 += s[i]
+        result = []
+        count = 1
+        for n in str(num):
+            if n == '6' and count == 1:
+                result.append('9')
+                count -= 1
             else:
-                max_69 += "9" + s[i+1:]
-                return int(max_69)
-        return int(max_69)
+                result.append(n)
+
+        return int(''.join(result))
