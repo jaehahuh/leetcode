@@ -10,4 +10,5 @@ class Solution:
                 max_area = area
             elif dia == longest_dia and area > max_area:
                 max_area = area
+                
         return max_area 
