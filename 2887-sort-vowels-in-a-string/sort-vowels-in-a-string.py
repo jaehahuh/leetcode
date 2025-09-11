@@ -1,21 +1,12 @@
 class Solution:
     def sortVowels(self, s: str) -> str:
         vowels = set('aeiouAEIOU')
-        order_dict = defaultdict(str)
-
-        vowels_list = []
-        for i in range(len(s)):
-            if s[i] not in vowels:
-                order_dict[i] = s[i]
-            else:
-                vowels_list.append(s[i])
-        vowels_list.sort(reverse=True)
-
-        sorted_str = []
-        for i in range(len(s)):
-            if i in order_dict:
-                sorted_str.append(order_dict[i])
-            else:
-                sorted_str.append(vowels_list.pop())
         
-        return ''.join(sorted_str)
+        vowels_indices = [i for i, ch in enumerate(s) if ch in vowels]
+        vowels_vals = sorted(s[i] for i in vowels_indices)
+
+        list_s = list(s)
+        for i, ch in zip(vowels_indices, vowels_vals):
+            list_s[i] = ch
+
+        return ''.join(list_s)
