@@ -1,20 +1,18 @@
 class Solution:
     def maxFreqSum(self, s: str) -> int:
-        sum_freq = 0
-        vowels = 'aeiou'
         count_dict = Counter(s)
-        count_list = sorted(count_dict.items(), key=lambda x:x[1], reverse=True)
-        
-        for item in count_list:
-            ch, count = item
-            if ch in vowels:
-                sum_freq += count
-                break
+        vowels = {'a', 'e', 'i', 'o', 'u'} 
+        max_vowel = 0 
+        max_consonant = 0 
 
-        for item in count_list:
-            ch, count = item
+        for ch, count in count_dict.items(): 
+            if ch in vowels: 
+                if count > max_vowel: 
+                    max_vowel = count
+
+        for ch, count in count_dict.items():
             if ch not in vowels:
-                sum_freq += count
-                break
-
-        return sum_freq
+                if count > max_consonant:
+                    max_consonant = count
+        
+        return max_vowel + max_consonant
