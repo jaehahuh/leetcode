@@ -7,7 +7,7 @@ class Solution:
                 gcd_num = gcd(stack[-1], curr)
                 if gcd_num == 1:
                     break
-                curr = (stack[-1]//gcd_num) * curr #lck
+                curr = (stack[-1]//gcd_num) * curr #lcm
                 stack.pop()
             stack.append(curr)
         
