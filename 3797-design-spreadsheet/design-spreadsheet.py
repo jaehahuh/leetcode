@@ -1,10 +1,7 @@
 class Spreadsheet:
 
     def __init__(self, rows: int):
-        self.sheet = {}
-        for i in range(26):
-            for j in range(1, rows + 1):
-                self.sheet[chr(ord('A') + i) + str(j)] = 0
+        self.sheet = defaultdict(int)
         
     def setCell(self, cell: str, value: int) -> None:
         self.sheet[cell] = value
