@@ -3,7 +3,7 @@ class Solution:
         MOD = 10**9 + 7
         n = len(nums)
 
-        # 이항 계수 (Combination)를 미리 계산합니다.
+        # 이항 계수 (Combination)를 미리 계산
         # comb[i][j] = iCj
         comb = [[0] * (m + 1) for _ in range(m + 1)]
         for i in range(m + 1):
@@ -28,7 +28,7 @@ class Solution:
             # 기본 케이스
             # 모든 nums 인덱스를 다 사용했을 때
             if index == n:
-                # remaining_m이 0이고, 마지막 carry에서 필요한 1의 개수와 남은 k가 일치해야 합니다.
+                # remaining_m이 0이고, 마지막 carry에서 필요한 1의 개수와 남은 k가 일치해야 됌
                 final_set_bits = 0
                 temp_carry = carry
                 while temp_carry > 0:
@@ -48,15 +48,15 @@ class Solution:
                 # 조합의 수: 남은 remaining_m 위치 중 count개를 선택하는 경우의 수
                 combinations = comb[remaining_m][count]
                 
-                # nums[index]^count의 곱을 계산합니다.
+                # nums[index]^count의 곱을 계산
                 product_contribution = mod_pow(nums[index], count)
                 
-                # 다음 단계로 전달할 올림과 남은 k를 계산합니다.
+                # 다음 단계로 전달할 올림과 남은 k를 계산
                 bit_val = (carry + count) % 2
                 new_carry = (carry + count) // 2
                 new_remaining_k = remaining_k - bit_val
 
-                # 재귀 호출하여 결과를 누적합니다.
+                # 재귀 호출하여 결과를 누적
                 sub_problem_res = dp(remaining_m - count, new_remaining_k, index + 1, new_carry)
                 
                 term = (combinations * product_contribution) % MOD
