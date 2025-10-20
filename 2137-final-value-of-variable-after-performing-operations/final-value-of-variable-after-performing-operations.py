@@ -2,9 +2,10 @@ class Solution:
     def finalValueAfterOperations(self, operations: List[str]) -> int:
         x = 0
         for op in operations:
-            if op == 'X++' or op == '++X':
+            if op in ('X++', '++X'):
                 x += 1
-            else:
+            elif op in ('X--', '--X'):
                 x -= 1
-        
+            else:
+                raise ValueError(f"Invalid operation: {op}")
         return x
