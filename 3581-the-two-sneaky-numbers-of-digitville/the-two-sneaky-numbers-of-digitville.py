@@ -1,5 +1,8 @@
-from collections import Counter
 class Solution:
     def getSneakyNumbers(self, nums: List[int]) -> List[int]:
-        count_dic = Counter(nums)
-        return [num for num, count in count_dic.items() if count == 2]
+        result = []
+        count_dict = Counter(nums)
+        for key, items in count_dict.items():
+            if items > 1:
+                result.append(key)
+        return result
