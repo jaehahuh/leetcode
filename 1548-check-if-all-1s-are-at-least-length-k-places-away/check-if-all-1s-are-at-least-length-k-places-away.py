@@ -1,5 +1,7 @@
 class Solution:
     def kLengthApart(self, nums: List[int], k: int) -> bool:
+        if k == 0:
+            return True
         prev_one = -1
         for i in range(len(nums)) :
             if nums[i] == 1 and prev_one < 0:
