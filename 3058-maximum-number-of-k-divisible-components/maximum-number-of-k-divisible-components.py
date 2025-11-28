@@ -1,22 +1,21 @@
 class Solution:
     def maxKDivisibleComponents(self, n: int, edges: List[List[int]], values: List[int], k: int) -> int:
         graph = defaultdict(list)
-        for n1, n2 in edges:
-            graph[n1].append(n2)
-            graph[n2].append(n1)
-
-        component_count = [0]
-        def dfs(current, parent):
-            total = values[current]
-            for child in graph[current]:
+        for u, v in edges:
+            graph[u].append(v)
+            graph[v].append(u)
+        
+        num_components = 0
+        def dfs(curr, parent):
+            nonlocal num_components
+            total = values[curr]
+            for child in graph[curr]:
                 if child != parent:
-                    total += dfs(child, current)
-            # divisible with K
+                    total += dfs(child, curr)
+            
             if total % k == 0:
-                component_count[0] += 1
+                num_components += 1
             return total
-    
-        # DFS start
+        
         dfs(0, -1)
-
-        return component_count[0]
+        return num_components
