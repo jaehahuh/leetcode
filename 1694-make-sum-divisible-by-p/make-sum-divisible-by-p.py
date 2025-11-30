@@ -1,30 +1,25 @@
 class Solution:
     def minSubarray(self, nums: List[int], p: int) -> int:
-        #prefix sum
         total = sum(nums)
-        remain = total % p
+        remainder = total % p
 
-        # If the remainder is 0, no subarray needs to be removed
-        if remain == 0:
+        if remainder == 0:
             return 0
         
-        res = len(nums)
-        cur_sum = 0
+        n = len(nums)
+        result = n
+        current_prefix_sum_remainder = 0
 
-        # map remain of prefix sums to last index
-        remain_to_index = {0:-1} 
-        for i, num in enumerate(nums):
-            cur_sum = (cur_sum + num) % p
-            prefix = (cur_sum - remain + p) %p
+        remainder_map = {0: -1}  # remainder_map[0] = -1
+        for i in range(n):
+            current_prefix_sum_remainder = (current_prefix_sum_remainder + nums[i]) % p
+            target_to_find = (current_prefix_sum_remainder - remainder + p) % p
+            if target_to_find in remainder_map:
+                current_subarray_len = i - remainder_map[target_to_find]
+                result = min(result, current_subarray_len)   
+            remainder_map[current_prefix_sum_remainder] = i
 
-            # If there is a prefix with the same remainder, calculate the minimum subarray length
-            if prefix in remain_to_index:
-                length = i - remain_to_index[prefix]
-                res = min(res, length)
-            remain_to_index[cur_sum] = i
-        
-        # If the result is still the length of the array, return -1 (impossible case)
-        if res == len(nums):
+        if result == n:
             return -1
         else:
-            return res
+            return result
