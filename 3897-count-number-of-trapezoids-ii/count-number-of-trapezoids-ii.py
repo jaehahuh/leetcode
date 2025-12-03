@@ -1,4 +1,3 @@
-from fractions import Fraction
 class Solution:
     def countTrapezoids(self, points: List[List[int]]) -> int:
         s_i = defaultdict(list)
@@ -27,7 +26,6 @@ class Solution:
         for intercepts_in_same_slope in s_i.values():
             if len(intercepts_in_same_slope) == 1: continue
             c = Counter(intercepts_in_same_slope)
-
             acc = 0
             for count in c.values():
                 result += acc * count
@@ -36,7 +34,6 @@ class Solution:
         for slope_in_same_mid in m_s.values():
             if len(slope_in_same_mid) == 1: continue
             c = Counter(slope_in_same_mid)
-
             acc = 0
             for count in c.values():
                 result -= acc * count
