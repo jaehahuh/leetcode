@@ -1,7 +1,7 @@
 class Solution:
     def countCoveredBuildings(self, n: int, buildings: List[List[int]]) -> int:
-        rows = defaultdict(list) # x : y
-        cols = defaultdict(list) # y: x
+        rows = defaultdict(list)
+        cols = defaultdict(list)
         for r, c in buildings:
             rows[r].append(c)
             cols[c].append(r)
