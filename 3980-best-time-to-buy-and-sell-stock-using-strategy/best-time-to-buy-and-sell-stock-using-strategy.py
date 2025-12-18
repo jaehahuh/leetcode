@@ -18,7 +18,6 @@ class Solution:
         prefix_sell_delta = [0] * (n + 1)
         for i in range(n):
             prefix_sell_delta[i+1] = prefix_sell_delta[i] + sell_delta_values[i]
-
         
         for i in range(n - k + 1):
             hold_sum = prefix_buy_delta[i + (k//2)] - prefix_buy_delta[i]
