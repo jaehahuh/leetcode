@@ -1,14 +1,12 @@
 class Solution:
     def maximumHappinessSum(self, happiness: List[int], k: int) -> int:
         max_happiness = 0
-        happiness.sort(reverse=True)
+        top_k_happiness = heapq.nlargest(k, happiness)
         decrement = 0
-        for i in range(k):
-            curr_value = happiness[i] - decrement
+        for happiness in top_k_happiness:
+            curr_value = happiness - decrement
             if curr_value > 0:
-                max_happiness += happiness[i] - decrement
-            else:
-                max_happiness += 0
+                max_happiness += curr_value
             decrement += 1
     
-        return max_happiness   
+        return max_happiness
