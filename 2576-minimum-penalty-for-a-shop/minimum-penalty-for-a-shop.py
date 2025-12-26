@@ -8,9 +8,9 @@ class Solution:
         if y_count == n:
             return n
 
-        result = 0
         min_penalty = y_count
         earliest_hour = 0
+        current_closing_hour = 0
         n_count = 0
         for i in range(n):
             if customers[i] == 'Y':
@@ -18,11 +18,11 @@ class Solution:
             else:
                 n_count += 1
 
-            earliest_hour += 1
+            current_closing_hour += 1
             curr_penalty = y_count + n_count
             
             if curr_penalty < min_penalty:
                 min_penalty = curr_penalty
-                result = earliest_hour
+                earliest_hour = current_closing_hour
             
-        return result
+        return earliest_hour
