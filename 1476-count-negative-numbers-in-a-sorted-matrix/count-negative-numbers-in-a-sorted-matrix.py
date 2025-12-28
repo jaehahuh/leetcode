@@ -4,11 +4,14 @@ class Solution:
         m = len(grid)
         n = len(grid[0])
 
-        for r in range(m):
-            for c in range(n - 1, -1, -1):
-                if grid[r][c] < 0:
-                    count += 1
-                else:
-                    break
+        r = 0
+        c = n - 1
 
+        while r < m and c >= 0:
+            if grid[r][c] < 0:
+                count += (m-r)
+                c -= 1
+            else:
+                r += 1
+        
         return count
