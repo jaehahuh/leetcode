@@ -1,38 +1,43 @@
 class Solution:
     def separateSquares(self, squares: List[List[int]]) -> float:
-        total_area = 0
-        min_y = float('inf')
-        max_y_plus_l = float('-inf')
+        events = []
+        total_sum_of_areas = 0
 
-        for x, y, l in squares:
-            total_area += l * l
-            min_y = min(min_y, y)
-            max_y_plus_l = max(max_y_plus_l, y + l)
-        
-        target_area = total_area / 2
+        for x_coord, y_coord, side_length in squares:
+            events.append((y_coord, side_length, True))
+            events.append((y_coord + side_length, side_length, False))
+            total_sum_of_areas += side_length * side_length
 
-        def get_area_below(y_line_coord):
-            current_area = 0
-            for x, y, l in squares:
-                bottom = y
-                top = y + l
+        target_half_area = total_sum_of_areas / 2
+
+        events.sort()
+
+        previous_y = 0
+        accumulated_area = 0
+        current_active_width = 0
+
+        for current_y_event, side_length_of_square, is_start_event in events:
+            height_segment = current_y_event - previous_y
+            area_added_in_segment = height_segment * current_active_width
+            accumulated_area_after_segment = accumulated_area + area_added_in_segment
+
+            if accumulated_area_after_segment >= target_half_area:
+                area_before_this_segment = accumulated_area
+                remaining_area_to_target = target_half_area - area_before_this_segment
+                total_area_of_this_segment = area_added_in_segment 
                 
-                if top <= y_line_coord:
-                    current_area += l * l
-                elif bottom < y_line_coord < top:
-                    current_area += l * (y_line_coord - bottom)
-            return current_area
+                if current_active_width > 0:
+                    interpolation_ratio = remaining_area_to_target / total_area_of_this_segment
+                    return previous_y + height_segment * interpolation_ratio
+                else:
+                    return previous_y
 
-        low = min_y
-        high = max_y_plus_l
-        
-        for _ in range(100): 
-            mid_y = (low + high) / 2
-            area_below_mid = get_area_below(mid_y)
+            accumulated_area = accumulated_area_after_segment
 
-            if area_below_mid < target_area:
-                low = mid_y
+            if is_start_event:
+                current_active_width += side_length_of_square
             else:
-                high = mid_y
-                
-        return high
+                current_active_width -= side_length_of_square
+            
+            previous_y = current_y_event
+        return -1
