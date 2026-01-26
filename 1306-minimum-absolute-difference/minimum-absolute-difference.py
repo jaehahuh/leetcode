@@ -3,20 +3,17 @@ class Solution:
         arr.sort()
         n = len(arr)
 
-        result = []
-        min_abs_diff = float('inf')
+        min_diff = float('inf')
         
         for i in range(n-1):
             curr_num = arr[i]
             next_num = arr[i+1]
-            diff = abs(curr_num - next_num)
-            min_abs_diff = min(min_abs_diff, diff)
-    
-        for i in range(n-1):
-            curr_num = arr[i]
-            next_num = arr[i+1]
-            diff = abs(curr_num - next_num)
-            if min_abs_diff == diff:
-                result.append([arr[i], arr[i+1]])
-        
+            diff = next_num - curr_num
+
+            if min_diff > diff:
+                result = [[curr_num, next_num]]
+                min_diff = diff
+            elif min_diff == diff:
+                result.append([curr_num, next_num])
+
         return result
