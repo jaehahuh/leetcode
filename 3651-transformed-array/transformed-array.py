@@ -6,7 +6,7 @@ class Solution:
             if nums[i] > 0:
                 result[i] = nums[(i+nums[i])%n]
             elif nums[i] < 0:
-                result[i] = nums[(i-abs(nums[i]))%n]
+                result[i] = nums[(i+nums[i])%n]
             else:
                 result[i] = nums[i]
         return result
