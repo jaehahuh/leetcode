@@ -1,18 +1,12 @@
 class Solution:
     def countPrimeSetBits(self, left: int, right: int) -> int:
-        def prime_num(num:int) -> bool:
-            if num < 2:
-                return False
-            for i in range(2, int(num ** 0.5) + 1):
-                if num % i == 0:
-                    return False
-            return True
+        # 0~32 범위에 대해 소수 여부 미리 계산
+        prime_set = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31}
 
         count = 0
-        for num in range(left, right+1):
-            binary_num = bin(num)
-            num_bits = binary_num.count('1')
-            if prime_num(num_bits):
+        for num in range(left, right + 1):
+            ones = num.bit_count()
+            if ones in prime_set:
                 count += 1
 
         return count
