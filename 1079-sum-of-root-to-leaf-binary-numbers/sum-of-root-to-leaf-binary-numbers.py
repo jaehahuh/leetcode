@@ -6,25 +6,14 @@
 #         self.right = right
 class Solution:
     def sumRootToLeaf(self, root: Optional[TreeNode]) -> int:
-        def dfs(node, path, all_paths):
+        def dfs(node, curr_val):
             if node is None:
-                return
-            path.append(node.val)
+                return 0
+            curr_val = (curr_val << 1) | node.val
 
             if node.left is None and node.right is None:
-                all_paths.append(list(path))
-            else:
-                dfs(node.left, path, all_paths)
-                dfs(node.right, path, all_paths)
- 
-            path.pop()
+                return curr_val
+            
+            return dfs(node.left, curr_val) + dfs(node.right, curr_val)
         
-        all_paths = []
-        dfs(root, [], all_paths)
-        total = 0
-        for path in all_paths:
-            binary_num = ''.join(str(bit) for bit in path)
-            decimal_num = int(binary_num, 2)
-            total += decimal_num
-                
-        return total
+        return dfs(root, 0)
