@@ -1,15 +1,18 @@
 class Solution:
     def numSteps(self, s: str) -> int:
-        if len(s) == 1:
-            return 0
-        
-        count_step = 0
-        num = int(s, 2)
-        while num > 1:
-            count_step += 1
-            if num%2 == 1:
-                num += 1
+        steps = 0
+        carry = 0
+
+        for i in range(len(s) - 1, 0, -1):
+            bit = int(s[i])
+            total = bit + carry
+            if total == 1: # odd num
+                steps += 2
+                carry = 1
             else:
-                num //= 2
+                steps += 1
         
-        return count_step
+        if carry == 1:
+            steps += 1
+        
+        return steps
