@@ -1,11 +1,9 @@
 class Solution:
     def bitwiseComplement(self, n: int) -> int:
-        bin_num = bin(n)[2:]
-        complement = ''
-        for bit in bin_num:
-            if bit == '0':
-                complement += '1'
-            else:
-                complement += '0'
+        if n == 0:
+            return 1
         
-        return int(complement, 2)
+        length = n.bit_length()
+        mask = (1 << length) - 1
+
+        return mask ^ n
