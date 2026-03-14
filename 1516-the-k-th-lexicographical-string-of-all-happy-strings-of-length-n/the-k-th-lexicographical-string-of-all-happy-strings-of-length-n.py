@@ -1,22 +1,35 @@
 class Solution:
     def getHappyString(self, n: int, k: int) -> str:
-        comb_count = 3 * (2**(n-1))
+        chars = ['a', 'b', 'c']
+        total = 3 * (2 ** (n - 1))
+        if k > total:
+            return ""
 
         result = []
-        choices = 'abc'
-        left, right = 1, comb_count
+        def dfs(pos, prev_char, k):
+            if pos == n:
+                return True, k  # 완성
 
-        for i in range(n):
-            curr = left
-            partition_size = (right - left + 1) // len(choices)
+            for c in chars:
+                if c == prev_char:
+                    continue
+                # 뒤에 올 수 있는 문자열 수
+                count = 2 ** (n - pos - 1)
+                if k > count:
+                    k -= count
+                else:
+                    result.append(c)
+                    return dfs(pos + 1, c, k)
+            return False, k
 
-            for letter in choices:
-                if k in range(curr, curr + partition_size):
-                    result.append(letter)
-                    left = curr
-                    right = curr + partition_size - 1
-                    choices = 'abc'.replace(letter, '')
-                    break
-                curr += partition_size
+        # 첫 문자 처리
+        for c in chars:
+            count = 2 ** (n - 1)
+            if k > count:
+                k -= count
+            else:
+                result.append(c)
+                dfs(1, c, k)
+                break
 
-        return ''.join(result)
+        return "".join(result)
