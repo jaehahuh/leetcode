@@ -2,14 +2,17 @@ class Solution:
     def numberOfSpecialChars(self, word: str) -> int:
         count = 0
         word_set = set(word)
-        seen = set()
-        ch_indices = defaultdict(list)
+        first_upper = {}
+        last_lower = {}
         for i, ch in enumerate(word):
-            ch_indices[ch].append(i)
+            if ch.islower():
+                last_lower[ch] = i
+            elif ch.isupper() and ch not in first_upper:
+                first_upper[ch] = i
+
         for c in word_set:
-            if c.islower() and c.upper() in word_set and c not in seen:
-                if ch_indices[c][-1] < ch_indices[c.upper()][0]:
+            if c.islower() and c.upper() in word_set:
+                if last_lower[c] < first_upper[c.upper()]:
                     count += 1
-                seen.add(c)
                 
         return count
