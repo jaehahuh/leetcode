@@ -1,8 +1,7 @@
 class Solution:
     def numOfStrings(self, patterns: List[str], word: str) -> int:
-        count = 0
-        for s in patterns:
-            if s in word:
-                count += 1
-                
-        return count
+        result = 0
+        for p in patterns:
+            if p in word:
+                result += 1
+        return result
