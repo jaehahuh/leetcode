@@ -5,29 +5,33 @@
 #         self.next = next
 class Solution:
     def nodesBetweenCriticalPoints(self, head: Optional[ListNode]) -> List[int]:
-        critical_points = []
-        node = head
+        prev = head
+        curr = head.next
+
+        if not curr or not curr.next:
+            return [-1, -1]
+        
+        first_index = -1
+        prev_index = -1
+        min_distance = float('inf')
         index = 1
-        prev = None
-        while node.next:
-            nxt = node.next.val
-            if prev:
-                if (node.val < prev and node.val < nxt) or (node.val > prev and node.val > nxt):
-                    critical_points.append(index)                    
-            prev = node.val
-            node = node.next
+
+        while curr.next:
+            nxt = curr.next
+            if (curr.val > prev.val and curr.val > nxt.val) or (curr.val < prev.val and curr.val < nxt.val):
+                if first_index == -1:
+                    first_index = index
+                else:
+                    min_distance = min(min_distance, index - prev_index)
+                
+                prev_index = index
+        
+            prev = curr
+            curr = curr.next
             index += 1
         
-        n = len(critical_points)
-        if n < 2:
-            return [-1,-1]
+        if first_index == prev_index or first_index == -1:
+            return [-1, -1]
         
-        max_distance = critical_points[-1] - critical_points[0]
-
-        min_distance = float('inf')
-        for i in range(1,n):
-            distance = critical_points[i] - critical_points[i-1]
-            if distance < min_distance:
-                min_distance = distance
-        
+        max_distance = prev_index - first_index
         return [min_distance, max_distance]
