@@ -4,5 +4,4 @@ class Solution:
 
         if min_val % 2 != 0:
             return True
-
         return all(num % 2 == 0 for num in nums1)
