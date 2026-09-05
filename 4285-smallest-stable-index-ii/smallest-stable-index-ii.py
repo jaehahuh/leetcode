@@ -7,7 +7,7 @@ class Solution:
         for i in range(n-2, -1, -1):
             smallest[i] = min(smallest[i + 1], nums[i])
         
-        largest = nums[0]
+        largest = float('-inf')
 
         for i in range(n):
             largest = max(largest, nums[i])
