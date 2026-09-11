@@ -1,12 +1,27 @@
 class Solution:
     def totalNumbers(self, digits: List[int]) -> int:
-        counts = Counter(digits)
-        result = 0
+        n = len(digits)
+        visited = [False] * n
+        unique_numbers = set()
 
-        for num in range(100, 1000, 2):
-            num_counts = Counter(int(d) for d in str(num))
-
-            if all(counts[d] >= count for d, count in num_counts.items()):
-                result += 1
-        
-        return result
+        def dfs(depth, curr_val):
+            if depth == 3:
+                unique_numbers.add(curr_val)
+                return
+            
+            for i in range(n):
+                if visited[i]:
+                    continue
+                
+                if depth == 0 and digits[i] == 0:
+                    continue
+                
+                if depth == 2 and digits[i] % 2 != 0:
+                    continue
+                
+                visited[i] = True
+                dfs(depth + 1, curr_val * 10 + digits[i])
+                visited[i] = False
+            
+        dfs(0,0)
+        return len(unique_numbers)
