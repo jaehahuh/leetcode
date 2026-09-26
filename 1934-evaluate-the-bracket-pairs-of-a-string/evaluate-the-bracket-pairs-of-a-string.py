@@ -3,8 +3,9 @@ class Solution:
         key = ''
         result = []
         knowledge_map = {k:v for k, v in knowledge}
+        in_bracket = False
+
         for ch in s:
-            print(key)
             if ch == '(':
                 result.append(key)
                 key = ''
