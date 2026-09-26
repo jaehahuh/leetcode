@@ -7,16 +7,19 @@ class Solution:
 
         for ch in s:
             if ch == '(':
-                result.append(key)
+                in_bracket = True
                 key = ''
             elif ch == ')':
+                in_bracket = False
                 if key in knowledge_map:
                     result.append(knowledge_map[key])
                 else:
                     result.append('?')
                 key = ''
             else:
-                key += ch
-        result.append(key)
+                if in_bracket:
+                    key += ch
+                else:
+                    result.append(ch)
 
         return ''.join(result)
