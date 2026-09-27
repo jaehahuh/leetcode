@@ -1,20 +1,28 @@
 class Solution:
     def reverseParentheses(self, s: str) -> str:
+        n = len(s)
+        pair = {}
         stack = []
 
-        for ch in s:
-            if ch == ')':
-                curr = []
-                while stack and stack[-1] != '(':
-                    curr.append(stack.pop())
-                
-                if stack and stack[-1] == '(':
-                    stack.pop()
-                
-                for c in curr:
-                    stack.append(c)
-                
-            else:
-                stack.append(ch)
+        for i, ch in enumerate(s):
+            if ch == '(':
+                stack.append(i)
+            elif ch == ')':
+                j = stack.pop()
+                pair[i] = j
+                pair[j] = i
         
-        return ''.join(stack)
+        result = []
+        i = 0
+        direction = 1 # 1: foward, -1 : backward
+        
+        while i < n:
+            if s[i] == '(' or s[i] == ')':
+                i = pair[i]
+                direction = -direction
+            else:
+                result.append(s[i])
+
+            i += direction
+        
+        return ''.join(result)
