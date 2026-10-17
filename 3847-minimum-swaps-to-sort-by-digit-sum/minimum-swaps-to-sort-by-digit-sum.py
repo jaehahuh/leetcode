@@ -1,35 +1,32 @@
 class Solution:
     def minSwaps(self, nums: List[int]) -> int:
-        digits = []
-        for i, num in enumerate(nums):
-            digit_sum = 0
-            temp = num
-            while temp > 0:
-                digit_sum += temp%10
-                temp //= 10
-            digits.append((digit_sum, num, i))
-        
-        sorted_digits = sorted(digits, key=lambda x: (x[0],x[1]))
-        digits_pos = [i for digits_sum, num, i in sorted_digits]
-        
+        def digit_sum(n: int) -> int:
+            total = 0
+            while n > 0:
+                total += n % 10
+                n //= 10
+            return total
+
         n = len(nums)
-        index_pos = sorted(enumerate(digits_pos), key=lambda x: x[1])
-        visited = [False] * n
+        arr = [(digit_sum(nums[i]), nums[i], i) for i in range(n)]
         
-        min_swaps = 0
-        for i in range(n):
-            if visited[i] or index_pos[i][0] == i:
-                continue
+        arr.sort(key=lambda x: (x[0], x[1]))
+
+        target_pos = [0] * n
+        for new_idx, (_, _, orig_idx) in enumerate(arr):
+            target_pos[orig_idx] = new_idx
             
-            cycle_size = 0
-            curr = i
-
-            while not visited[curr]:
-                visited[curr] = True
-                curr = index_pos[curr][0]
-                cycle_size += 1
-
-            if cycle_size > 1:
-                min_swaps += (cycle_size - 1)
+        visited = [False] * n
+        min_swaps = 0
         
+        for i in range(n):
+            if not visited[i] and target_pos[i] != i:
+                cycle_size = 0
+                curr = i
+                while not visited[curr]:
+                    visited[curr] = True
+                    curr = target_pos[curr]
+                    cycle_size += 1
+                min_swaps += cycle_size - 1
+                
         return min_swaps
