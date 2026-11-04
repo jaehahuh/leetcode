@@ -17,7 +17,6 @@ class Solution:
                 else:
                     break
                 
-            
         cost = [0] * (n - x + 1)
         
         # 초반 윈도우 빌드 및 슬라이딩 진행
@@ -80,7 +79,7 @@ class Solution:
                 current_cost = (median * lower_size - sum_lower) + (sum_upper - median * upper_size)
                 cost[i - x + 1] = current_cost
 
-        # 2. DP: k개의 비중복 길이 x 구간 선택
+        # DP: k개의 비중복 길이 x 구간 선택
         # dp[j] = j개의 구간을 선택했을 때의 최소 비용
         dp = [float('inf')] * (k + 1)
         dp[0] = 0
