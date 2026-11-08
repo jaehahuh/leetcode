@@ -1,5 +1,5 @@
 class Solution:
-    def countServers(self, grid: List[List[int]]) -> int:
+    def countServers(self, grid: list[list[int]]) -> int:
         server = 0 # Count of servers that can communicate
         rows = len(grid)
         columns = len(grid[0])
